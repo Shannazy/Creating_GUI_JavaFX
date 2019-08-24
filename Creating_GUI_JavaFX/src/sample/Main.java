@@ -7,26 +7,37 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class Main extends Application {
-    Button button;
+    Stage window;
+    Scene page1, page2;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        primaryStage.setTitle("First GUI");   // Stage is the window and the title is First Gui
-        button = new Button();  //Create new button object
-        button.setText("Click Me!");    //Label for the button
+        window = primaryStage;
 
-        button.setOnAction(e -> System.out.println("Testing"));   //this is saying that the handle method is in this class. You can change that to any class
+        Label title1 = new Label("Welcome to the page");
+        Button button1 = new Button("Go to Scene 2");
+        button1.setOnAction(e -> window.setScene(page2));
 
-        StackPane layout = new StackPane(); //This is the general simple layout
-        layout.getChildren().add(button);
+        VBox layout1 = new VBox(0);    //VBox stacks the objects on each other with a space of 20
+        layout1.getChildren().addAll(title1, button1);
+        page1 = new Scene(layout1, 200, 200);
 
-        Scene page = new Scene(layout, 500, 500);
-        primaryStage.setScene(page);
-        primaryStage.show();
+        Button button2 = new Button("Go to Scene 1");
+        button2.setOnAction(e -> window.setScene(page1));
+
+        VBox layout2 = new VBox(20);
+        layout2.getChildren().add(button2);
+        page2 = new Scene(layout2, 500, 500);
+
+        window.setScene(page1);
+        window.setTitle("Testing GUI");
+        window.show();
     }
 
 
